@@ -1,0 +1,362 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TimelineEntry from '../components/TimelineEntry.astro';
+
+const timelineEntries = [
+  {
+    year: "2024 - Present",
+    title: "Head of AI Engineering",
+    organization: "Coverflex",
+    description: "Leading AI initiatives to drive growth and optimize product offerings at Coverflex. Developing AI solutions that enhance business performance.",
+    type: "role",
+    isLeft: true,
+    order: 0
+  },
+  {
+    year: "2023 - Present",
+    title: "Non-Executive Board Member",
+    organization: "Codacy",
+    description: "Guiding strategic decisions and supporting growth in developer tools and AI.",
+    type: "role",
+    isLeft: false,
+    order: 1
+  },
+  {
+    year: "2019 - Present",
+    title: "Mentor",
+    organization: "Startup Lisboa & Universidade Nova de Lisboa",
+    description: "Mentoring startups and university students in tech, product development, and leadership.",
+    type: "mentorship",
+    isLeft: true,
+    order: 2
+  },
+  {
+    year: "2019",
+    title: "AWS Summit Madrid - Startup Central",
+    organization: "Speaker",
+    description: "Presented on leveraging containers for scaling startups.",
+    type: "speaking",
+    isLeft: false,
+    order: 3
+  },
+  {
+    year: "2014",
+    title: "PITCH Beta Startup Competition Winner",
+    organization: "WebSummit",
+    description: "Recognition for innovation and potential in the startup ecosystem.",
+    type: "award",
+    isLeft: true,
+    order: 4
+  },
+  {
+    year: "2012 - 2023",
+    title: "CTO & Co-Founder",
+    organization: "Codacy",
+    description: "Took Codacy from Pre-Seed to Series B funding, scaling a team of 60+ and achieving multi-million ARR. Led the transformation of the product into a robust SaaS solution focused on code quality automation.",
+    type: "role",
+    isLeft: false,
+    order: 5
+  },
+  {
+    year: "2010 - 2011",
+    title: "Co-Founder",
+    organization: "Imaginary Cloud",
+    description: "Built mobile applications like Hole19 and BestTables, recognized on the Apple Store.",
+    type: "role",
+    isLeft: true,
+    order: 6
+  },
+  {
+    year: "2009 - 2011",
+    title: "University Teacher",
+    organization: "ISCAL",
+    description: "Taught IT-focused courses for business students, integrating technology with business applications.",
+    type: "role",
+    isLeft: false,
+    order: 7
+  },
+  {
+    year: "2009 - 2010",
+    title: "Senior Software Engineer & Co-Founder",
+    organization: "Feel Fine Games",
+    description: "Focused on mobile game development for iOS.",
+    type: "role",
+    isLeft: true,
+    order: 8
+  },
+  {
+    year: "2008 - 2009",
+    title: "Senior Software Engineer",
+    organization: "BT / NHS",
+    description: "Developed solutions for integrating patient data systems in healthcare, automating records migration.",
+    type: "role",
+    isLeft: false,
+    order: 9
+  },
+  {
+    year: "2007 - 2008",
+    title: "Senior Software Engineer",
+    organization: "Focus Business Solutions & Checkfree",
+    description: "Designed and implemented software solutions in the finance sector.",
+    type: "role",
+    isLeft: true,
+    order: 10
+  },
+  {
+    year: "2004 - 2006",
+    title: "Software Engineer",
+    organization: "Medialog Europa",
+    description: "Worked on AdLog.Net, a CRM for advertising, managing a major tech transition.",
+    type: "role",
+    isLeft: false,
+    order: 11
+  }
+];
+---
+
+<Layout title="João Caxaria - Engineer, AI Enthusiast, Product Builder">
+  <main>
+    <section class="hero">
+      <h1>João Caxaria</h1>
+      <p class="tagline">Engineer, AI Enthusiast, Product Builder</p>
+      <p class="bio">
+        Driving AI innovation and technology transformation for impactful business solutions. 
+        With over a decade of experience, I've led teams, built products, and contributed to 
+        the tech industry through leadership and mentorship.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:joao@caxaria.dev" class="contact-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          Email
+        </a>
+        <a href="https://linkedin.com/in/caxaria" class="contact-button" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+          LinkedIn
+        </a>
+      </div>
+    </section>
+
+    <section class="timeline">
+      <h2>My Journey</h2>
+      <div class="timeline-container">
+        <div class="timeline-line"></div>
+        {timelineEntries.map((entry) => (
+          <TimelineEntry
+            {...entry}
+            colorIndex={entry.order}
+            totalEntries={timelineEntries.length+1}
+          />
+        ))}
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="social-icons">
+        <a href="mailto:joao@caxaria.dev" class="social-icon" aria-label="Email">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </a>
+        <a href="https://linkedin.com/in/caxaria" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+        </a>
+      </div>
+    </footer>
+  </main>
+</Layout>
+
+<style>
+  main {
+    margin: auto;
+    padding: 2rem;
+    width: 1200px;
+    max-width: calc(100% - 2rem);
+    color: white;
+    font-size: 20px;
+    line-height: 1.6;
+  }
+
+  .hero {
+    text-align: center;
+    margin-bottom: 4rem;
+    padding: 4rem 0;
+    background: linear-gradient(rgba(var(--accent-dark), 0.8), rgba(var(--accent-dark), 0.4));
+    border-radius: 1rem;
+  }
+
+  h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 1rem;
+    background-image: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 400%;
+    background-position: 0%;
+  }
+
+  .tagline {
+    font-size: 1.5rem;
+    color: rgb(var(--accent-light));
+    margin-bottom: 1.5rem;
+  }
+
+  .bio {
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    color: #ccc;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .contact-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(var(--accent), 0.1);
+    border: 1px solid rgba(var(--accent-light), 0.2);
+    border-radius: 2rem;
+    color: rgb(var(--accent-light));
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .contact-button:hover {
+    background: rgba(var(--accent), 0.2);
+    border-color: rgba(var(--accent-light), 0.4);
+    transform: translateY(-2px);
+  }
+
+  .contact-button svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .timeline {
+    position: relative;
+    padding: 2rem 0;
+  }
+
+  .timeline h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: rgb(var(--accent-light));
+    margin-bottom: 4rem;
+  }
+
+  .timeline-container {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px 0;
+  }
+
+  .timeline-container::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+
+  .timeline-line {
+    content: '';
+    position: absolute;
+    width: 2px;
+    background: linear-gradient(
+      to bottom,
+      rgb(136, 58, 234),
+      rgb(58, 134, 234),
+      rgb(58, 234, 134),
+      rgb(234, 234, 58),
+      rgb(234, 134, 58),
+      rgb(234, 58, 58)
+    );
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 4rem;
+    border-top: 1px solid rgba(var(--accent-light), 0.1);
+  }
+
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .social-icon {
+    color: rgb(var(--accent-light));
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 50%;
+    background: rgba(var(--accent), 0.1);
+  }
+
+  .social-icon:hover {
+    color: white;
+    background: rgba(var(--accent), 0.2);
+    transform: translateY(-2px);
+  }
+
+  .social-icon svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding: 2rem 1rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    .tagline {
+      font-size: 1.2rem;
+    }
+
+    .bio {
+      font-size: 1rem;
+    }
+
+    .timeline h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .timeline-line {
+      left: 30px;
+    }
+
+    .timeline-container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+</style>

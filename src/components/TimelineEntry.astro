@@ -1,0 +1,194 @@
+---
+interface Props {
+  year: string;
+  title: string;
+  organization: string;
+  description: string;
+  type?: 'role' | 'speaking' | 'award' | 'mentorship';
+  isLeft?: boolean;
+  colorIndex?: number;
+  totalEntries?: number;
+}
+
+const { year, title, organization, description, type = 'role', isLeft = true, colorIndex = 0, totalEntries = 12 } = Astro.props;
+
+const icons = {
+  role: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7h-3V4c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v3H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-5-3v3H9V4h6zM4 9h16v11H4V9z"/></svg>`,
+  speaking: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>`,
+  award: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>`,
+  mentorship: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>`
+};
+
+const baseColors = [
+  { r: 136, g: 58, b: 234 },  // Purple
+  { r: 58, g: 134, b: 234 },  // Blue
+  { r: 58, g: 234, b: 134 },  // Green
+  { r: 234, g: 234, b: 58 },  // Yellow
+  { r: 234, g: 134, b: 58 },  // Orange
+  { r: 234, g: 58, b: 58 }    // Red
+];
+
+function interpolateColor(colorIndex: number, totalEntries: number) {
+  const position = colorIndex / (totalEntries - 1);
+  const segments = baseColors.length - 1;
+  const segment = Math.min(Math.floor(position * segments), segments - 1);
+  const segmentPosition = (position * segments) % 1;
+
+  const color1 = baseColors[segment];
+  const color2 = baseColors[segment + 1];
+
+  const r = Math.round(color1.r + (color2.r - color1.r) * segmentPosition);
+  const g = Math.round(color1.g + (color2.g - color1.g) * segmentPosition);
+  const b = Math.round(color1.b + (color2.b - color1.b) * segmentPosition);
+
+  return {
+    bg: `rgba(${r}, ${g}, ${b}, 0.2)`,
+    border: `rgba(${r}, ${g}, ${b}, 0.1)`,
+    accent: `rgb(${Math.min(r + 88, 255)}, ${Math.min(g + 88, 255)}, ${Math.min(b + 88, 255)})`
+  };
+}
+
+const color = interpolateColor(colorIndex, totalEntries);
+---
+
+<div class={`timeline-entry ${isLeft ? 'left' : 'right'}`}>
+  <div class="content" style={`
+    background: ${color.bg};
+    border-color: ${color.border};
+  `}>
+    <div class="icon" style={`background: ${color.accent}`}>
+      <Fragment set:html={icons[type]} />
+    </div>
+    <div class="year" style={`
+      background: ${color.bg};
+      color: ${color.accent};
+    `}>{year}</div>
+    <h3>{title}</h3>
+    <h4 style={`color: ${color.accent}`}>{organization}</h4>
+    <p>{description}</p>
+  </div>
+</div>
+
+<style>
+  .timeline-entry {
+    position: relative;
+    width: calc(50% - 30px);
+    margin: 2rem 0;
+    clear: both;
+  }
+
+  .left {
+    float: left;
+    padding-right: 30px;
+  }
+
+  .right {
+    float: right;
+    padding-left: 30px;
+  }
+
+  .content {
+    position: relative;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid;
+    transition: transform 0.3s ease;
+  }
+
+  .content:hover {
+    transform: translateY(-5px);
+  }
+
+  .left .content::after {
+    content: '';
+    position: absolute;
+    right: -10px;
+    top: 20px;
+    width: 20px;
+    height: 20px;
+    border-right: 1px solid;
+    border-top: 1px solid;
+    transform: rotate(45deg);
+  }
+
+  .right .content::after {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 20px;
+    width: 20px;
+    height: 20px;
+    border-left: 1px solid;
+    border-bottom: 1px solid;
+    transform: rotate(45deg);
+  }
+
+  .icon {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+
+  .icon svg {
+    width: 20px;
+    height: 20px;
+    color: #13151a;
+  }
+
+  .year {
+    display: inline-block;
+    padding: 0.3rem 1rem;
+    border-radius: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  h3 {
+    margin: 0;
+    color: white;
+    font-size: 1.2rem;
+  }
+
+  h4 {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+  }
+
+  p {
+    margin: 0.5rem 0 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #ccc;
+  }
+
+  @media (max-width: 768px) {
+    .timeline-entry {
+      width: calc(100% - 60px);
+      padding: 0;
+      float: right;
+      margin-left: 60px;
+    }
+
+    .left .content::after,
+    .right .content::after {
+      left: -10px;
+      border-right: none;
+      border-top: none;
+      border-left: 1px solid;
+      border-bottom: 1px solid;
+    }
+
+    .icon {
+      left: -50px;
+      transform: none;
+    }
+  }
+</style>
